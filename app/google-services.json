@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "47545301888",
+    "project_id": "furelogin2",
+    "storage_bucket": "furelogin2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:47545301888:android:1b95c8ef2c982d92509f65",
+        "android_client_info": {
+          "package_name": "com.example.firelogin2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "47545301888-bcnrt5sbqm4j4lbge97jq18c8lb0d9cg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.firelogin2",
+            "certificate_hash": "aa24eeb549ebd418544442a6504c8a2b5bee3df5"
+          }
+        },
+        {
+          "client_id": "47545301888-id7p4b2j6n65aov87iv5opfmioinp7jm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDFfdd9Vqaiz5YILfKZAGrSQkPs81rtnhI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "47545301888-6uaso4c89coc79lajn5f3b3e4c0r19ps.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
