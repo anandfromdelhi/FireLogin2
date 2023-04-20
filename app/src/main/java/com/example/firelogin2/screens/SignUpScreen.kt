@@ -3,6 +3,7 @@ package com.example.firelogin2.screens
 import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.OutlinedButton
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
@@ -13,11 +14,20 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Dialog
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.example.firelogin2.navigation.Screens
+import com.example.firelogin2.repo.AuthUser
+import com.example.firelogin2.screens.signIn.SignInViewModel
+import com.example.firelogin2.utils.ResultState
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 @Composable
 fun SignUpScreen(
-    navController: NavController
+    navController: NavController,
+    viewModel:AuthViewModel = hiltViewModel()
 ) {
     var name by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
@@ -28,17 +38,23 @@ fun SignUpScreen(
     fun alert(msg: String) {
         Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
     }
+    var state by remember {
+        mutableStateOf(false)
+    }
+    if (state) {
+        Dialog(onDismissRequest = { }) {
+            CircularProgressIndicator()
+        }
+    }
+
+    var validPassword by remember { mutableStateOf(false) }
 
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        OutlinedTextField(
-            value = name,
-            onValueChange = { name = it },
-            label = { Text(text = "Name") })
-        Spacer(modifier = Modifier.height(10.dp))
+
         OutlinedTextField(
             value = email,
             onValueChange = { email = it },
@@ -61,7 +77,37 @@ fun SignUpScreen(
         )
         Spacer(modifier = Modifier.height(10.dp))
         OutlinedButton(onClick = {
-            /*TODO*/
+            email = email.trim()
+            password = password.trim()
+            retypePassword = retypePassword.trim()
+            if (password == retypePassword) {
+                validPassword = true
+            }else{
+                alert("retyped password don't match")
+            }
+
+            if (email.isNotEmpty() && password.isNotEmpty() && validPassword) {
+                scope.launch(Dispatchers.Main) {
+                    viewModel.createUser(AuthUser(email, password)).collect {
+                        when (it) {
+                            is ResultState.Success -> {
+                                state = false
+                                alert("Signed up successfully")
+                                navController.navigate(Screens.WelcomeScreen.route)
+                            }
+                            is ResultState.Failure -> {
+                                state = false
+                                val message = it.msg.toString().split(":")
+                                alert(message[1])
+                            }
+                            is ResultState.Loading -> {
+                                state = true
+                            }
+                        }
+                    }
+                }
+            }
+
         }) {
             Text(text = "Sign up")
         }

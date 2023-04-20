@@ -11,21 +11,21 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.firelogin2.data.UserData
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 @Composable
 fun WelcomeScreen(
     userData:UserData?,
     onSignOut: () -> Unit
 ) {
-
+    val user = Firebase.auth.currentUser
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
         if (userData?.profilePicture != null) {
-
-
             if (userData.userName != null) {
                 Text(
                     text = userData.userName, textAlign = TextAlign.Center,
@@ -36,6 +36,15 @@ fun WelcomeScreen(
             Button(onClick = onSignOut) {
                 Text(text = "Sign out")
             }
+        }else{
+            Text(text = "Welcome")
+            if (user != null) {
+                Text(text =user.email.toString() )
+            } else {
+
+                Text(text = "No user is signed in")
+            }
+
         }
     }
 

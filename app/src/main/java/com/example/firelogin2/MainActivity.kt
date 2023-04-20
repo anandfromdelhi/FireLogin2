@@ -12,7 +12,9 @@ import com.example.firelogin2.auth.GoogleAuthClient
 import com.example.firelogin2.navigation.Navigation
 import com.example.firelogin2.ui.theme.FireLogin2Theme
 import com.google.android.gms.auth.api.identity.Identity
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
     private val googleAuthUiClient by lazy {

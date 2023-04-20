@@ -1,14 +1,12 @@
 package com.example.firelogin2.navigation
 
 import android.content.Context
-import android.content.IntentSender
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.*
-import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -75,7 +73,7 @@ fun Navigation(googleAuthUiClient: GoogleAuthClient, applicationContext: Context
                         ).build()
                     )
                 }
-            }, navController)
+            }, navController = navController)
         }
 
         //sign up screen
