@@ -16,16 +16,19 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.firelogin2.auth.GoogleAuthClient
 import com.example.firelogin2.screens.SignInScreen
+import com.example.firelogin2.screens.SignUpScreen
 import com.example.firelogin2.screens.WelcomeScreen
 import com.example.firelogin2.screens.signIn.SignInViewModel
 import kotlinx.coroutines.launch
 
 @Composable
-fun Navigation(googleAuthUiClient: GoogleAuthClient,applicationContext:Context) {
+fun Navigation(googleAuthUiClient: GoogleAuthClient, applicationContext: Context) {
     val scope = rememberCoroutineScope()
 
     val navController: NavHostController = rememberNavController()
     NavHost(navController = navController, startDestination = Screens.SignInScreen.route) {
+
+        //sign in screen
         composable(route = Screens.SignInScreen.route) {
             val viewModel = viewModel<SignInViewModel>()
             val state by viewModel.signInState.collectAsState()
@@ -36,6 +39,7 @@ fun Navigation(googleAuthUiClient: GoogleAuthClient,applicationContext:Context) 
                     navController.navigate(Screens.WelcomeScreen.route)
                 }
             }
+
             val launcher = rememberLauncherForActivityResult(
                 contract = ActivityResultContracts.StartIntentSenderForResult(),
                 onResult = { result ->
@@ -71,18 +75,22 @@ fun Navigation(googleAuthUiClient: GoogleAuthClient,applicationContext:Context) 
                         ).build()
                     )
                 }
-            })
+            }, navController)
         }
+
+        //sign up screen
         composable(route = Screens.SignUpScreen.route) {
-            //todo
+            SignUpScreen(navController = navController)
         }
+
+        //welcome screen
         composable(route = Screens.WelcomeScreen.route) {
             WelcomeScreen(
                 userData = googleAuthUiClient.getSignedInUser(),
                 onSignOut = {
                     scope.launch {
-                    googleAuthUiClient.signOut()
-                        Toast.makeText(applicationContext,"Signed out",Toast.LENGTH_LONG)
+                        googleAuthUiClient.signOut()
+                        Toast.makeText(applicationContext, "Signed out", Toast.LENGTH_LONG)
                             .show()
                         navController.popBackStack()
                     }
