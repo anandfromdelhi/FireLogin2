@@ -46,7 +46,7 @@ fun SignInScreen(
             }
         }
 
-
+        var textError by remember {mutableStateOf(false)}
         var email by remember { mutableStateOf("") }
         var password by remember { mutableStateOf("") }
         val scope = rememberCoroutineScope()
@@ -65,14 +65,17 @@ fun SignInScreen(
         OutlinedTextField(
             value = email,
             onValueChange = { email = it },
-            label = { Text(text = "Email") })
+            label = { Text(text = "Email") },
+            isError = textError
+            )
         Spacer(modifier = Modifier.height(10.dp))
         OutlinedTextField(
             value = password,
             onValueChange = { password = it },
             label = { Text(text = "Password") },
             visualTransformation = PasswordVisualTransformation(),
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+            isError = textError
         )
         Spacer(modifier = Modifier.height(10.dp))
         OutlinedButton(onClick = {
@@ -83,12 +86,14 @@ fun SignInScreen(
                     viewModel.loginUser(AuthUser(email, password)).collect {
                         when (it) {
                             is ResultState.Success -> {
+                                textError = false
                                 state = false
                                 alert("Signed in successfully")
                                 navController.navigate(Screens.WelcomeScreen.route)
                             }
                             is ResultState.Failure -> {
                                 state = false
+                                textError = true
                                 val message = it.msg.toString().split(":")
                                 alert(message[1])
                             }
@@ -101,13 +106,7 @@ fun SignInScreen(
             Text(text = "Sign in")
         }
 
-        Button(onClick = {
-            email = email.trim()
-            password = password.trim()
-            onSignInClick.invoke()
-        }) {
-            Text(text = "Sign in with google")
-        }
+
         Spacer(modifier = Modifier.height(10.dp))
 
         Row() {
@@ -116,6 +115,14 @@ fun SignInScreen(
             Text(text = "Sign up", modifier = Modifier.clickable {
                 navController.navigate(Screens.SignUpScreen.route)
             })
+        }
+        Spacer(modifier = Modifier.height(150.dp))
+        Button(onClick = {
+            email = email.trim()
+            password = password.trim()
+            onSignInClick.invoke()
+        }) {
+            Text(text = "Sign in with google")
         }
     }
 }

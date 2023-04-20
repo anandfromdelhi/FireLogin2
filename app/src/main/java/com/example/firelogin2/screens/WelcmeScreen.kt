@@ -1,25 +1,38 @@
 package com.example.firelogin2.screens
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
+import androidx.compose.material.OutlinedButton
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.ViewModel
+import androidx.navigation.NavController
 import com.example.firelogin2.data.UserData
+import com.example.firelogin2.navigation.Screens
+import com.example.firelogin2.repo.AuthRepo
+import com.example.firelogin2.repo.AuthUser
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
 @Composable
 fun WelcomeScreen(
     userData:UserData?,
-    onSignOut: () -> Unit
+    onSignOut: () -> Unit,
+    navController: NavController
 ) {
     val user = Firebase.auth.currentUser
+    val context = LocalContext.current
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -40,10 +53,18 @@ fun WelcomeScreen(
             Text(text = "Welcome")
             if (user != null) {
                 Text(text =user.email.toString() )
+                OutlinedButton(onClick = {
+                    FirebaseAuth.getInstance().signOut()
+                    navController.navigate(Screens.SignInScreen.route)
+                    Toast.makeText(context,"Signed out successfully",Toast.LENGTH_SHORT).show()
+                }) {
+                    Text(text = "Sign out")
+                }
             } else {
 
                 Text(text = "No user is signed in")
             }
+
 
         }
     }

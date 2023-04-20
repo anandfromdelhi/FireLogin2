@@ -92,7 +92,7 @@ fun Navigation(googleAuthUiClient: GoogleAuthClient, applicationContext: Context
                             .show()
                         navController.popBackStack()
                     }
-                }
+                },navController
             )
         }
     }
