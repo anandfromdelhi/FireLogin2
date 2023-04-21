@@ -1,5 +1,6 @@
 package com.example.firelogin2.repo
 
+import com.example.firelogin2.data.AuthUser
 import com.example.firelogin2.utils.ResultState
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.channels.awaitClose

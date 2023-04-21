@@ -16,7 +16,7 @@ import com.example.firelogin2.auth.GoogleAuthClient
 import com.example.firelogin2.screens.SignInScreen
 import com.example.firelogin2.screens.SignUpScreen
 import com.example.firelogin2.screens.WelcomeScreen
-import com.example.firelogin2.screens.signIn.SignInViewModel
+import com.example.firelogin2.screens.viewmodels.SignInViewModel
 import kotlinx.coroutines.launch
 
 @Composable

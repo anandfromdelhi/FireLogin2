@@ -1,8 +1,8 @@
-package com.example.firelogin2.screens
+package com.example.firelogin2.screens.viewmodels
 
 import androidx.lifecycle.ViewModel
 import com.example.firelogin2.repo.AuthRepo
-import com.example.firelogin2.repo.AuthUser
+import com.example.firelogin2.data.AuthUser
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

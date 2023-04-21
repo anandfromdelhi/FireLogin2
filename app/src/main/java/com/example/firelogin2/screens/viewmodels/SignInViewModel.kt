@@ -1,14 +1,11 @@
-package com.example.firelogin2.screens.signIn
+package com.example.firelogin2.screens.viewmodels
 
 import androidx.lifecycle.ViewModel
 import com.example.firelogin2.data.SignInResult
-import com.example.firelogin2.repo.AuthRepo
-import com.example.firelogin2.repo.AuthUser
-import dagger.hilt.android.lifecycle.HiltViewModel
+import com.example.firelogin2.screens.signIn.SignInState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
-import javax.inject.Inject
 
 
 class SignInViewModel() : ViewModel() {

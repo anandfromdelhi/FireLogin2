@@ -1,4 +1,4 @@
-package com.example.firelogin2.repo
+package com.example.firelogin2.data
 
 data class AuthUser(
     val email:String,

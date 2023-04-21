@@ -18,8 +18,8 @@ import androidx.compose.ui.window.Dialog
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.firelogin2.navigation.Screens
-import com.example.firelogin2.repo.AuthUser
-import com.example.firelogin2.screens.signIn.SignInViewModel
+import com.example.firelogin2.data.AuthUser
+import com.example.firelogin2.screens.viewmodels.AuthViewModel
 import com.example.firelogin2.utils.ResultState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -27,7 +27,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun SignUpScreen(
     navController: NavController,
-    viewModel:AuthViewModel = hiltViewModel()
+    viewModel: AuthViewModel = hiltViewModel()
 ) {
     var name by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }

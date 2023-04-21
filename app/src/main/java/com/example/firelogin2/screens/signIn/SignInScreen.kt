@@ -14,12 +14,11 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.firelogin2.navigation.Screens
-import com.example.firelogin2.repo.AuthUser
+import com.example.firelogin2.data.AuthUser
 import com.example.firelogin2.screens.signIn.SignInState
-import com.example.firelogin2.screens.signIn.SignInViewModel
+import com.example.firelogin2.screens.viewmodels.AuthViewModel
 import com.example.firelogin2.utils.ResultState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
