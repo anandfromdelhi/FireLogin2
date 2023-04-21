@@ -62,6 +62,11 @@ fun WelcomeScreen(
 
 
         }
+        Button(onClick = {
+            navController.navigate(Screens.AddEditDataScreen.route)
+        }) {
+            Text(text = "Add")
+        }
     }
 
 }

@@ -13,9 +13,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.firelogin2.auth.GoogleAuthClient
-import com.example.firelogin2.screens.SignInScreen
-import com.example.firelogin2.screens.SignUpScreen
-import com.example.firelogin2.screens.WelcomeScreen
+import com.example.firelogin2.screens.*
 import com.example.firelogin2.screens.viewmodels.SignInViewModel
 import kotlinx.coroutines.launch
 
@@ -94,6 +92,12 @@ fun Navigation(googleAuthUiClient: GoogleAuthClient, applicationContext: Context
                     }
                 },navController
             )
+        }
+        composable(route = Screens.AddEditDataScreen.route){
+            AddEditDataScreen(navController = navController)
+        }
+        composable(route = Screens.ReadDataScreen.route){
+            ReadDataScreen(navController)
         }
     }
 

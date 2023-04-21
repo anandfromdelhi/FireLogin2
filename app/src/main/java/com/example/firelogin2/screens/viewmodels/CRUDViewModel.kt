@@ -29,7 +29,7 @@ class CRUDViewModel :ViewModel(){
     fun retrieveData(
         uId:String,
         context: Context,
-        data: (MoneyData) -> Unit
+       data: (MoneyData) -> Unit
     ) = CoroutineScope(Dispatchers.IO).launch{
         val fireStoreRef = Firebase.firestore.collection("user")
             .document(uId)
